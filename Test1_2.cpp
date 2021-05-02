@@ -1,41 +1,26 @@
 #include <iostream>
-#pragma warning (disable:4996)
 using namespace std;
-void makeString(char* array, const int k, const int m);
-int main()
+void printAllKLengthRec(char *set, string prefix, int n, int k);
+int main(void)
 {
-	int n;
-	cin >> n;
-	char* array = new char[n];
-
-	for (int i = 0; i < n; i++) {
-		array[i] = 'a';
-	}
-
-	makeString(array,0,n-1);
-
-	delete[]array;
-	return 0;
+    char array[2] = {'a', 'b'};
+    int n;
+    cin>>n;
+    printAllKLengthRec(array,"",2, n);
+     
 }
-void makeString(char* array, const int k, const int m)
+void printAllKLengthRec(char set[], string prefix, int n, int k)
 {
-	if (k == m) {
-		for (int i = 0; i <= m; i++) {
-			cout << array[i] << " ";
-		}
-		cout << endl;
-	}
-	else {
-		for (int i = k; i <= m; i++) {
-			swap(array[k], array[i]);
-			makeString(array, k + 1, m);
-			swap(array[k], array[i]);
-		}
-	}
-}
-void swap(char& k, char& i)
-{
-	char temp = k;
-	k = i;
-	i = temp;
+    if (k == 0)
+    {
+        cout << prefix << endl;
+        return;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        string newPrefix;
+        newPrefix = prefix + set[i];
+        printAllKLengthRec(set, newPrefix, n, k - 1);
+    }
+ 
 }
