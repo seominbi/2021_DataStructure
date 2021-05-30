@@ -1,41 +1,28 @@
 #include <iostream>
-#pragma warning (disable:4996)
 using namespace std;
-void makeString(char* array, const int k, const int m);
-int main()
+void permutations(char *array, string prefix, int n, int k);
+int main(void)
 {
-	int n;
-	cin >> n;
-	char* array = new char[n];
-
-	for (int i = 0; i < n; i++) {
-		array[i] = 'a';
-	}
-
-	makeString(array,0,n-1);
-
-	delete[]array;
-	return 0;
+    char array[2] = {'a', 'b'};
+    int n;
+    cin>>n;
+    permutations(array,"",2, n);
+     
 }
-void makeString(char* array, const int k, const int m)
+void permutations(char *array, string prefix, int n, int k)
 {
-	if (k == m) {
-		for (int i = 0; i <= m; i++) {
-			cout << array[i] << " ";
-		}
-		cout << endl;
-	}
-	else {
-		for (int i = k; i <= m; i++) {
-			swap(array[k], array[i]);
-			makeString(array, k + 1, m);
-			swap(array[k], array[i]);
-		}
-	}
+    if (k == 0)
+    {
+        cout << prefix << endl;
+        return;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        string newPrefix;
+        newPrefix = prefix + array[i];
+        permutations(array, newPrefix, n, k - 1);
+    }
+ 
 }
-void swap(char& k, char& i)
-{
-	char temp = k;
-	k = i;
-	i = temp;
-}
+//https://www.geeksforgeeks.org/print-all-combinations-of-given-length/
+//위 사이트를 참고하였습니다.
